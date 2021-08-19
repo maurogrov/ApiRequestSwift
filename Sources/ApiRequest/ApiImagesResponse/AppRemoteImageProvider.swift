@@ -66,6 +66,7 @@ extension AppRemoteImageProvider {
                     switch resultado {
                     case .failure(let error):
                         print(error)
+                        promise(.success(nil))
                     case .success(let image):
                         promise(.success(image))
                     }
@@ -91,7 +92,7 @@ extension AppRemoteImageProvider {
     //            }
     //            completar?(imagen)
     //        }
-    //    } 
+    //    }
     
     
     func descargarImagen(de url: URL, completionHandler handler: @escaping ((Result<UIImage?, ApiQueryError>) -> Void)  ) {
