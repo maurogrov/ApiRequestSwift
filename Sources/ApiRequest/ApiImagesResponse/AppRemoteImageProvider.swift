@@ -10,7 +10,7 @@ import Combine
 
 public class AppRemoteImageProvider {
     
-    public static let shared = AppRemoteImageProvider()
+    public static let shared = AppRemoteImageProvider() 
     static let imageCache = NSCache<NSString, AnyObject>()
     
     private lazy var fetcher = AsyncHttpFetcher()
