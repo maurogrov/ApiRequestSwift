@@ -8,7 +8,7 @@
 import UIKit
 import Combine
 
-public class AppRemoteImageProvider {
+public class AppRemoteImageProvider { 
     
     public static let shared = AppRemoteImageProvider()
     static let imageCache = NSCache<NSString, AnyObject>()
