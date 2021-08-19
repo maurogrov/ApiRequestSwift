@@ -79,7 +79,7 @@ extension AppRemoteImageProvider {
     //        //print(url)
     //        var request = URLRequest(url: url)
     //        request.cachePolicy = .returnCacheDataElseLoad
-    //        
+    //
     //        fetcher.executeRequest(request) {(resultado) in
     //            var imagen: UIImage?
     //            switch resultado {
@@ -91,7 +91,7 @@ extension AppRemoteImageProvider {
     //            }
     //            completar?(imagen)
     //        }
-    //    }
+    //    } 
     
     
     func descargarImagen(de url: URL, completionHandler handler: @escaping ((Result<UIImage?, ApiQueryError>) -> Void)  ) {
