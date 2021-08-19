@@ -61,6 +61,7 @@ extension AppRemoteImageProvider {
 //                    //print("Network")
 //                }
                 
+                
                 self.descargarImagen(de: url) { (resultado) in
                     
                     switch resultado {
