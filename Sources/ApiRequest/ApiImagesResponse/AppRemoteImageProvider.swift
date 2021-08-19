@@ -8,14 +8,14 @@
 import UIKit
 import Combine
 
-public class AppRemoteImageProvider { 
+public class AppRemoteImageProvider {
     
-    static let shared = AppRemoteImageProvider()
+    public static let shared = AppRemoteImageProvider()
     static let imageCache = NSCache<NSString, AnyObject>()
     
     private lazy var fetcher = AsyncHttpFetcher()
     
-    func loadImage(imageView: inout UIImageView, strImagen: String, completion: @escaping (UIImage?)->Void) {
+    public func loadImage(imageView: inout UIImageView, strImagen: String, completion: @escaping (UIImage?)->Void) {
         
         let activityIndicator = UIActivityIndicatorView()
         activityIndicator.frame = imageView.bounds
