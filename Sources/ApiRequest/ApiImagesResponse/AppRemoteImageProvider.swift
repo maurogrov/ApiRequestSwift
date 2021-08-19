@@ -10,7 +10,7 @@ import Combine
 
 public class AppRemoteImageProvider {
     
-    public static let shared = AppRemoteImageProvider() 
+    public static let shared = AppRemoteImageProvider()
     static let imageCache = NSCache<NSString, AnyObject>()
     
     private lazy var fetcher = AsyncHttpFetcher()
@@ -22,8 +22,9 @@ public class AppRemoteImageProvider {
         imageView.addSubview(activityIndicator)
         activityIndicator.startAnimating()
         
-        guard let strImagenFormatted = strImagen.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else { return }
-        guard let urlImagen = URL(string: strImagenFormatted) else { return }
+        guard let strFormattedX = strImagen.removingPercentEncoding else { return }
+        guard let strFormattedY = strFormattedX.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else { return }
+        guard let urlImagen = URL(string: strFormattedY) else { return }
         
         //subImg = AppRemoteImageProvider.shared.publisher(para: urlImagen)
         
