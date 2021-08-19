@@ -8,7 +8,7 @@
 import UIKit
 import Combine
 
-public class AppRemoteImageProvider { 
+public class AppRemoteImageProvider {
     
     public static let shared = AppRemoteImageProvider()
     static let imageCache = NSCache<NSString, AnyObject>()
@@ -54,31 +54,68 @@ extension AppRemoteImageProvider {
                 promise(.success(cachedImage))
                 //print("Cache")
             }else {
-                self.descargarImagen(de: url) { imagen in
-                    promise(.success(imagen))
-                    //print("Network")
+                
+                
+//                self.descargarImagen(de: url) { imagen in
+//                    promise(.success(imagen))
+//                    //print("Network")
+//                }
+                
+                self.descargarImagen(de: url) { (resultado) in
+                    
+                    switch resultado {
+                    case .failure(let error):
+                        print(error)
+                    case .success(let image):
+                        promise(.success(image))
+                    }
                 }
             }
         }
     }
     
     //MARK: -RECOVER IMAGE FROM URL
-    func descargarImagen(de url: URL, completar: ((UIImage?) -> Void)? = nil) {
-        print(url)
+    //    func descargarImagen(de url: URL, completar: ((UIImage?) -> Void)? = nil) {
+    //        //print(url)
+    //        var request = URLRequest(url: url)
+    //        request.cachePolicy = .returnCacheDataElseLoad
+    //        
+    //        fetcher.executeRequest(request) {(resultado) in
+    //            var imagen: UIImage?
+    //            switch resultado {
+    //            case .failure(let error):
+    //                print(error, url)
+    //            case .success(let datos):
+    //                imagen = UIImage(data: datos)
+    //                AppRemoteImageProvider.imageCache.setObject(imagen!, forKey: url.absoluteString as NSString)
+    //            }
+    //            completar?(imagen)
+    //        }
+    //    }
+    
+    
+    func descargarImagen(de url: URL, completionHandler handler: @escaping ((Result<UIImage?, ApiQueryError>) -> Void)  ) {
+        //print(url)
         var request = URLRequest(url: url)
         request.cachePolicy = .returnCacheDataElseLoad
         
         fetcher.executeRequest(request) {(resultado) in
-            var imagen: UIImage?
             switch resultado {
             case .failure(let error):
-                print(error, url)
+                //print(error, url)
+                handler(.failure(error))
             case .success(let datos):
-                imagen = UIImage(data: datos)
-                AppRemoteImageProvider.imageCache.setObject(imagen!, forKey: url.absoluteString as NSString)
+                if let imagen = UIImage(data: datos) {
+                    AppRemoteImageProvider.imageCache.setObject(imagen, forKey: url.absoluteString as NSString)
+                    handler(.success(imagen))
+                }else {
+                    handler(.success(nil))
+                }
+               
             }
-            completar?(imagen)
+            //            handler(imagen)
         }
     }
+    
 }
 
